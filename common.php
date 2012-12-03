@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 if (!defined('IN_SAESPOT')) exit('error: 403 Access Denied');
 
 $mtime = explode(' ', microtime());
