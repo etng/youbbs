@@ -107,7 +107,7 @@ if($t_obj['comments']){
     $query_sql = "SELECT c.id,c.uid,c.addtime,c.content,u.avatar as avatar,u.name as author
         FROM yunbbs_comments c 
         LEFT JOIN yunbbs_users u ON c.uid=u.id
-        WHERE c.articleid='$tid' LIMIT ".($page-1)*$options['commentlist_num'].",".$options['commentlist_num'];
+        WHERE c.articleid='$tid' ORDER BY c.id ASC LIMIT ".($page-1)*$options['commentlist_num'].",".$options['commentlist_num'];
     $query = $DBS->query($query_sql);
     $commentdb=array();
     while ($comment = $DBS->fetch_array($query)) {
