@@ -72,4 +72,5 @@ $pagefile = dirname(__FILE__) . '/templates/default/'.$tpl.'member.php';
 
 include(dirname(__FILE__) . '/templates/default/'.$tpl.'layout.php');
 
+
 ?>
