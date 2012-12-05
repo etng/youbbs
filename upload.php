@@ -18,7 +18,7 @@ $mw = intval($_GET['mw']);
 $rsp = array('status'=>201, 'msg'=>'ok');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if($_FILES['filetoupload']['size']){
+    if($_FILES['filetoupload']['size'] && $_FILES['filetoupload']['size'] < 1048576){
         // 上传的文件名
         $up_name = strtolower($_FILES['filetoupload']['name']);
         // 上传文件扩展名
