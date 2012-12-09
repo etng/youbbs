@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($check_obj){
                 $tip1 = $n_name.' 分类名已存在，请修改为不同的分类名';
             }else{
-                if($DBS->query("INSERT INTO yunbbs_categories (id,name) VALUES ('','$n_name')")){
+                if($DBS->query("INSERT INTO yunbbs_categories (id,name) VALUES (null,'$n_name')")){
                     //
                     $tip1 = '已成功添加';
                 }else{

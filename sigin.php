@@ -67,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }else{
             $flag = 5;
         }
-        $DBS->query("INSERT INTO yunbbs_users (id,name,flag,password,regtime) VALUES ('','$name', $flag, '$pwmd5', $timestamp)");
+        $DBS->query("INSERT INTO yunbbs_users (id,name,flag,password,regtime) VALUES (null,'$name', $flag, '$pwmd5', $timestamp)");
         $new_uid = $DBS->insert_id();
         if($new_uid == 1){
             $DBS->unbuffered_query("UPDATE yunbbs_users SET flag = '99' WHERE id='1'");

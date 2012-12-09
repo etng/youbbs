@@ -47,7 +47,7 @@ CREATE TABLE yunbbs_links (
   PRIMARY KEY  (id)
 ) ENGINE=MyISAM ;
 
-INSERT INTO yunbbs_links VALUES('','YouBBS官方论坛', 'http://youbbs.sinaapp.com');
+INSERT INTO yunbbs_links VALUES(null,'YouBBS', 'http://youbbs.sinaapp.com');
 
 DROP TABLE IF EXISTS yunbbs_settings;
 CREATE TABLE yunbbs_settings (

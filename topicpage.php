@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $c_con_len = mb_strlen($c_content,'utf-8');
         if($c_con_len>=$options['comment_min_len'] && $c_con_len<=$options['comment_max_len']){
             $c_content = htmlspecialchars($c_content);
-            $DBS->query("INSERT INTO yunbbs_comments (id,articleid,uid,addtime,content) VALUES ('',$tid, $cur_uid, $timestamp, '$c_content')");
+            $DBS->query("INSERT INTO yunbbs_comments (id,articleid,uid,addtime,content) VALUES (null,$tid, $cur_uid, $timestamp, '$c_content')");
             $DBS->unbuffered_query("UPDATE yunbbs_articles SET ruid='$cur_uid',edittime='$timestamp',comments=comments+1 WHERE id='$tid'");
             $DBS->unbuffered_query("UPDATE yunbbs_users SET replies=replies+1,lastreplytime='$timestamp' WHERE id='$cur_uid'");
             // 更新u_code

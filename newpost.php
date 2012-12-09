@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 $p_title = htmlspecialchars($p_title);
                 $p_content = htmlspecialchars($p_content);
-                $DBS->query("INSERT INTO yunbbs_articles (id,cid,uid,title,content,addtime,edittime) VALUES ('',$cid,$cur_uid, '$p_title', '$p_content', $timestamp, $timestamp)");
+                $DBS->query("INSERT INTO yunbbs_articles (id,cid,uid,title,content,addtime,edittime) VALUES (null,$cid,$cur_uid, '$p_title', '$p_content', $timestamp, $timestamp)");
                 $new_aid = $DBS->insert_id();
                 $DBS->unbuffered_query("UPDATE yunbbs_categories SET articles=articles+1 WHERE id='$cid'");
                 $DBS->unbuffered_query("UPDATE yunbbs_users SET articles=articles+1, lastposttime=$timestamp WHERE id='$cur_uid'");

@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $n_name = trim($_POST['name']);
         $n_url = trim($_POST['url']);
         if($n_name && $n_url){
-            if($DBS->query("INSERT INTO yunbbs_links (id,name,url) VALUES ('','$n_name','$n_url')")){
+            if($DBS->query("INSERT INTO yunbbs_links (id,name,url) VALUES (null,'$n_name','$n_url')")){
                 //
                 $tip1 = '已成功添加';
             }else{
