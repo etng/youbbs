@@ -6,9 +6,9 @@ echo '
 <div class="sider-box">
     <div class="sider-box-title">管理员面板 （<a href="http://youbbs.sinaapp.com/" target="_blank">YouBBS官方支持</a>）</div>
     <div class="sider-box-content">
-    <span class="btn">
+    <div class="btn">
     <a href="/admin-node">分类管理</a><a href="/admin-setting">网站设置</a><a href="/admin-user-list">用户管理</a><a href="/admin-link-list">链接管理</a>
-    </span>
+    </div>
     <div class="c"></div>
     </div>
 </div>';
@@ -49,11 +49,11 @@ echo '
 <div class="sider-box">
     <div class="sider-box-title">最热主题</div>
     <div class="sider-box-content">
-    <span class="btn">';
+    <div class="btn">';
 foreach(array_slice($bot_nodes, 0, intval($options['hot_node_num'])) as $k=>$v ){
     echo '<a href="/',$k,'">',$v,'</a>';
 }
-echo '    </span>
+echo '    </div>
     <div class="c"></div>
     </div>
 </div>';
@@ -64,11 +64,11 @@ echo '
 <div class="sider-box">
     <div class="sider-box-title">最近添加的分类</div>
     <div class="sider-box-content">
-    <span class="btn">';
+    <div class="btn">';
 foreach( $newest_nodes as $k=>$v ){
     echo '<a href="/',$k,'">',$v,'</a>';
 }
-echo '    </span>
+echo '    </div>
     <div class="c"></div>
     </div>
 </div>';
@@ -79,11 +79,11 @@ echo '
 <div class="sider-box">
     <div class="sider-box-title">链接</div>
     <div class="sider-box-content">
-    <span class="btn">';
+    <div class="btn">';
 foreach( $links as $k=>$v ){
     echo '<a href="',$v,'" target="_blank">',$k,'</a>';
 }
-echo '    </span>
+echo '    </div>
     <div class="c"></div>
     </div>
 </div>';

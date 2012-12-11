@@ -2,6 +2,7 @@
 if (!defined('IN_SAESPOT')) exit('error: 403 Access Denied'); 
 
 echo '
+<form action="',$_SERVER["REQUEST_URI"],'" method="post">
 <div class="title">
     &raquo; - 修改帖子 &raquo;
     <select name="select_cid">
@@ -26,7 +27,6 @@ if($tip){
 }
 
 echo '
-<form action="',$_SERVER["REQUEST_URI"],'" method="post">
 <p>
 <input type="text" name="title" value="',$p_title,'" class="sll wb96" />
 </p>
