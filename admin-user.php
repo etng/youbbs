@@ -14,7 +14,6 @@ $act = trim($_GET['act']);
 $mid = intval(trim($_GET['mid']));
 
 if($act=='pass' || $act=='active'){
-    
     if($DBS->unbuffered_query("UPDATE yunbbs_users SET flag=5 WHERE id='$mid'")){
         if($act=='pass'){
             $tip1 = '已成功操作';
@@ -44,7 +43,6 @@ while ($user = $DBS->fetch_array($query)) {
     $userdb[] = $user;
 }
 
-
 // 获取最近被禁用的用户
 $query_sql = "SELECT id,name,regtime FROM yunbbs_users WHERE flag=0 ORDER BY id DESC LIMIT 10";
 $query = $DBS->query($query_sql);
@@ -54,7 +52,6 @@ while ($user = $DBS->fetch_array($query)) {
     $user['regtime'] = showtime($user['regtime']);
     $userdb2[] = $user;
 }
-
 
 // 页面变量
 $title = '用户管理';

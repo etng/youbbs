@@ -4,6 +4,12 @@ define('IN_SAESPOT', 1);
 include(dirname(__FILE__) . '/config.php');
 include(dirname(__FILE__) . '/common.php');
 
+if($options['qq_appid'] && $options['qq_appkey']){
+    header("content-Type: text/html; charset=UTF-8");
+    echo '现在流行用 <a href="/qqlogin">QQ登录了</a>';
+    exit;
+}
+
 if($cur_user){
     // 如果已经登录用户无聊打开这网址就让他重新登录吧
     setcookie("cur_uid", '', $timestamp-86400 * 365, '/');
@@ -35,14 +41,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         if($db_user){
                             $pwmd5 = md5($pw);
                             if($pwmd5 == $db_user['password']){
-                                //设置缓存和cookie
-                                $db_ucode = md5($db_user['id'].$db_user['password'].$db_user['lastposttime'].$db_user['lastreplytime']);
+                                //设置cookie
+                                $db_ucode = md5($db_user['id'].$db_user['password'].$db_user['regtime'].$db_user['lastposttime'].$db_user['lastreplytime']);
                                 $cur_uid = $db_user['id'];
+                                
                                 setcookie("cur_uid", $cur_uid, time()+ 86400 * 365, '/');
                                 setcookie("cur_uname", $name, time()+86400 * 365, '/');
                                 setcookie("cur_ucode", $db_ucode, time()+86400 * 365, '/');
                                 $cur_user = $db_user;
                                 unset($db_user);
+                                
                                 header('location: /');
                                 exit('logined');
                             }else{
@@ -64,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors[] = '用户名 或 密码 太长了';
         }
     }else{
-       $errors[] = '用户名 和 密码 必填'; 
+       $errors[] = '用户名 和 密码 验证码 必填'; 
     }
 }
 

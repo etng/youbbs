@@ -17,6 +17,14 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 if($options['head_meta']){
     echo $options['head_meta'];
 }
+if($is_spider){
+    if(isset($meta_des) && $meta_des){
+        echo '<meta name="description" content="',$meta_des,'" />';
+    }
+    if(isset($canonical)){
+        echo '<link rel="canonical" href="http://',$_SERVER['HTTP_HOST'],$canonical,'" />';
+    }
+}
 echo '
 </head>
 <body>
@@ -26,11 +34,15 @@ echo '
         <div class="banner">';
         
 if($cur_user){
-    echo '<a href="/member/',$cur_user['id'],'"><img src="/avatar/mini/',$cur_user['avatar'],'.png" alt="',$cur_user['name'],'"/></a>&nbsp;&nbsp;<a href="/setting">设置</a>&nbsp;&nbsp;<a href="/logout">退出</a>';
+    echo '<a href="/member/',$cur_user['id'],'"><img src="/avatar/mini/',$cur_user['avatar'],'.png" alt="',$cur_user['name'],'"/></a>&nbsp;&nbsp;<a href="/favorites">★</a>&nbsp;&nbsp;&nbsp;<a href="/setting">设置</a>&nbsp;&nbsp;<a href="/logout">退出</a>';
 }else{
-    echo '<a href="/login">登录</a>';
-    if(!$options['close_register']){
-        echo '&nbsp;&nbsp;&nbsp;<a href="/sigin">注册</a>';
+    if($options['qq_appid'] && $options['qq_appkey']){
+        echo '<a href="/qqlogin" rel="nofollow"><img src="/static/connect_logo_7.png"/></a>';
+    }else{
+        echo '<a href="/login">登录</a>';
+        if(!$options['close_register']){
+            echo '&nbsp;&nbsp;&nbsp;<a href="/sigin">注册</a>';
+        }
     }
 }
 echo '       </div>

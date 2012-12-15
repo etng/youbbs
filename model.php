@@ -4,7 +4,6 @@
 if (!defined('IN_SAESPOT')) exit('error: 403 Access Denied');
 
 //获取网站基本配置
-
 $query = $DBS->query("SELECT `title`, `value` FROM `yunbbs_settings`");
 $options = array();
 while($setting = $DBS->fetch_array($query)) {
@@ -19,7 +18,6 @@ if(!$options['safe_imgdomain']){
 
 unset($setting);
 $DBS->free_result($query);
-
 
 //获取链接
 function get_links() {
@@ -75,6 +73,7 @@ function get_site_infos() {
     $site_infos['回复'] = $table_status['Auto_increment'] -1;
     
     return $site_infos;
+
 }
 
 ?>

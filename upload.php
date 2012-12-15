@@ -18,7 +18,7 @@ $mw = intval($_GET['mw']);
 $rsp = array('status'=>201, 'msg'=>'ok');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if($_FILES['filetoupload']['size'] && $_FILES['filetoupload']['size'] < 1048576){
+    if($_FILES['filetoupload']['size']){
         // 上传的文件名
         $up_name = strtolower($_FILES['filetoupload']['name']);
         // 上传文件扩展名
@@ -97,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $is_gifs = null;
                 if($img_info[2]==1){
                     $out_img = file_get_contents($_FILES['filetoupload']['tmp_name']);
-                    if(strpos($out_img, chr(0x21).chr(0xff).chr(0x0b).'NETSCAPE2.0') !== FALSE){
+                    if(strpos( $out_img, chr(0x21).chr(0xff).chr(0x0b).'NETSCAPE2.0') !== FALSE){
                         $is_gifs = '1';
                     }
                 }
@@ -177,9 +177,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
             }else{
                 // 其它文件
-                $rsp['msg'] = '本站暂不支持上传非图片附件';
-                /*
-                // 除非对网站用户非常信任或使用第三方存储，否则不要开通图片以外的附件上传
                 if($options['upyun_domain'] && $options['upyun_user'] && $options['upyun_pw']){
                     // 上传到又拍云
                     include(dirname(__FILE__).'/upyun.class.php');
@@ -204,7 +201,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         $rsp['msg'] = '文件保存失败，请稍后再试';
                     }
                 }
-                */
+                
             }
         }
         

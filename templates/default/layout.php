@@ -19,12 +19,12 @@ if($options['head_meta']){
     echo $options['head_meta'];
 }
 if($is_spider){
-if(isset($meta_des)){
-    echo '<meta name="description" content="',$c_obj['name'],' - ',$t_obj['author'],' - ',htmlspecialchars(substr($t_obj['content'], 0, 150)),'" />';
-}
-if(isset($canonical)){
-    echo '<link rel="canonical" href="http://',$_SERVER['HTTP_HOST'],$canonical,'" />';
-}
+    if(isset($meta_des) && $meta_des){
+        echo '<meta name="description" content="',$meta_des,'" />';
+    }
+    if(isset($canonical)){
+        echo '<link rel="canonical" href="http://',$_SERVER['HTTP_HOST'],$canonical,'" />';
+    }
 }
 echo '
 </head>
@@ -52,11 +52,15 @@ if($cur_user){
     }else if($cur_user['flag'] == 1){
         echo '<span style="color:yellow;">在等待审核</span>&nbsp;&nbsp;&nbsp;';
     }
-    echo '<a href="/member/',$cur_user['id'],'">',$cur_user['name'],'</a>&nbsp;&nbsp;&nbsp;<a href="/setting">设置</a>&nbsp;&nbsp;&nbsp;<a href="/logout">退出</a>';
+    echo '<a href="/favorites" title="收藏的帖子">★</a>&nbsp;&nbsp;&nbsp;<a href="/member/',$cur_user['id'],'">',$cur_user['name'],'</a>&nbsp;&nbsp;&nbsp;<a href="/setting">设置</a>&nbsp;&nbsp;&nbsp;<a href="/logout">退出</a>';
 }else{
-    echo '<a href="/login" rel="nofollow">登录</a>';
-    if(!$options['close_register']){
-        echo '&nbsp;&nbsp;&nbsp;<a href="/sigin" rel="nofollow">注册</a>';
+    if($options['qq_appid'] && $options['qq_appkey']){
+        echo '<a href="/qqlogin" rel="nofollow"><img src="/static/connect_logo_7.png" alt="QQ微博登录"/></a>';
+    }else{
+        echo '<a href="/login" rel="nofollow">登录</a>';
+        if(!$options['close_register']){
+            echo '&nbsp;&nbsp;&nbsp;<a href="/sigin" rel="nofollow">注册</a>';
+        }
     }
 }
 echo '       </div>

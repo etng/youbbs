@@ -17,10 +17,19 @@ echo '    <div class="c"></div>
     <div class="topic-title-main float-left">
         <h1>',$t_obj['title'],'</h1>
         <div class="topic-title-date">
-        By <a href="/member/',$t_obj['uid'],'">',$t_obj['author'],'</a> at ',$t_obj['addtime'],' • 共',$t_obj['views'],'次点击';
+        By <a href="/member/',$t_obj['uid'],'">',$t_obj['author'],'</a> at ',$t_obj['addtime'],' • ',$t_obj['views'],'点击';
+if($t_obj['favorites']){
+    echo ' • ',$t_obj['favorites'],'收藏';
+}
+
 if($cur_user && $cur_user['flag']>4){
     if(!$t_obj['closecomment']){
-        echo '    <a href="#new-comment">回复</a>';
+        echo ' • <a href="#new-comment">回复</a>';
+    }
+    if($in_favorites){
+        echo ' • <a href="/favorites?act=del&id=',$t_obj['id'],'" title="点击取消收藏">取消收藏</a>';
+    }else{
+        echo ' • <a href="/favorites?act=add&id=',$t_obj['id'],'" title="点击收藏">收藏</a>';
     }
     if($cur_user['flag']>=99){
         echo ' &nbsp;&nbsp;&nbsp; • <a href="/admin-edit-post-',$t_obj['id'],'">编辑</a>';
@@ -43,6 +52,7 @@ echo '    </a></div>
 ',$options['ad_post_top'],'
 <p>',$t_obj['content'],'</p>
 ',$options['ad_post_bot'],'
+<div class="topic-title-date"></div>
 </div>
 
 </div>

@@ -15,6 +15,8 @@ if ($cur_user['flag']==0){
 
 
 // 获取提醒文章列表
+$cur_user = $DBS->fetch_one_array("SELECT * FROM yunbbs_users WHERE id='".$cur_uid."' LIMIT 1");
+
 if($cur_user['notic']){
     $ids = implode(',', array_unique(explode(',', substr($cur_user['notic'], 0, -1))));
     

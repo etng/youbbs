@@ -11,6 +11,8 @@ CREATE TABLE yunbbs_articles (
   views int(10) unsigned NOT NULL default '1',
   comments mediumint(8) unsigned NOT NULL default '0',
   closecomment tinyint(1) NOT NULL default '0',
+  favorites int(10) unsigned NOT NULL default '0',
+  visible tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (id),
   KEY cid (cid),
   KEY edittime (edittime),
@@ -22,11 +24,12 @@ CREATE TABLE yunbbs_categories (
   id smallint(6) unsigned NOT NULL auto_increment,
   name char(50) NOT NULL,
   articles mediumint(8) unsigned NOT NULL default '0',
+  about text NOT NULL,
   PRIMARY KEY  (id),
   KEY articles (articles)
 ) ENGINE=MyISAM ;
 
-INSERT INTO yunbbs_categories VALUES(1, '默认分类', 0);
+INSERT INTO yunbbs_categories VALUES(1, '默认分类', 0, '');
 
 DROP TABLE IF EXISTS yunbbs_comments;
 CREATE TABLE yunbbs_comments (
@@ -58,6 +61,7 @@ CREATE TABLE yunbbs_settings (
 
 
 INSERT INTO yunbbs_settings VALUES('name', 'youbbs');
+INSERT INTO yunbbs_settings VALUES('site_des', '又是一个YouBBS');
 INSERT INTO yunbbs_settings VALUES('icp', '');
 INSERT INTO yunbbs_settings VALUES('admin_email', '');
 INSERT INTO yunbbs_settings VALUES('home_shownum', '20');
@@ -94,6 +98,10 @@ INSERT INTO yunbbs_settings VALUES('ad_post_bot', '');
 INSERT INTO yunbbs_settings VALUES('ad_sider_top', '');
 INSERT INTO yunbbs_settings VALUES('ad_web_bot', '');
 INSERT INTO yunbbs_settings VALUES('main_nodes', '');
+INSERT INTO yunbbs_settings VALUES('spam_words', '');
+INSERT INTO yunbbs_settings VALUES('qq_scope', 'get_user_info');
+INSERT INTO yunbbs_settings VALUES('qq_appid', '');
+INSERT INTO yunbbs_settings VALUES('qq_appkey', '');
 
 DROP TABLE IF EXISTS yunbbs_users;
 CREATE TABLE yunbbs_users (
@@ -115,3 +123,23 @@ CREATE TABLE yunbbs_users (
   KEY name (name)
 ) ENGINE=MyISAM ;
 
+DROP TABLE IF EXISTS yunbbs_favorites;
+CREATE TABLE yunbbs_favorites (
+  id mediumint(8) unsigned NOT NULL auto_increment,
+  uid mediumint(8) unsigned NOT NULL default '0',
+  articles mediumint(8) unsigned NOT NULL default '0',
+  content mediumtext NOT NULL default '',
+  PRIMARY KEY (id),
+  KEY uid (uid)
+) ENGINE=MyISAM ;
+
+DROP TABLE IF EXISTS yunbbs_qqweibo;
+CREATE TABLE yunbbs_qqweibo (
+  id mediumint(8) unsigned NOT NULL auto_increment,
+  uid mediumint(8) unsigned NOT NULL default '0',
+  name varchar(20) NOT NULL default '',
+  openid char(32) NOT NULL,
+  PRIMARY KEY (id),
+  KEY uid (uid),
+  KEY openid (openid)
+) ENGINE=MyISAM ;

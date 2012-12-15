@@ -42,13 +42,27 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     $p_title = addslashes(trim($_POST['title']));
     $p_content = addslashes(trim($_POST['content']));
+    
+    // spam_words
+    if($options['spam_words'] && $cur_user['flag']<99){
+        $check_con = ' '.$p_title.$p_content;
+        $spam_words_arr = explode(",", $options['spam_words']);
+        foreach($spam_words_arr as $spam){
+            if(strpos($check_con, $spam)){
+                // has spam word
+                $DBS->unbuffered_query("UPDATE yunbbs_users SET flag='0' WHERE id='$cur_uid'");
+                
+                exit('403: dont post any spam.');
+            }
+        }
+    }
+    
     if($options['main_nodes']){
         $cid = $_POST['select_cid'];
     }
     if(($timestamp - $cur_user['lastposttime']) > $options['article_post_space']){
         if($p_title){
             if(mb_strlen($p_title,'utf-8')<=$options['article_title_max_len'] && mb_strlen($p_content,'utf-8')<=$options['article_content_max_len']){
-
                 $p_title = htmlspecialchars($p_title);
                 $p_content = htmlspecialchars($p_content);
                 $DBS->query("INSERT INTO yunbbs_articles (id,cid,uid,title,content,addtime,edittime) VALUES (null,$cid,$cur_uid, '$p_title', '$p_content', $timestamp, $timestamp)");
@@ -58,11 +72,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 // 更新u_code
                 $cur_user['lastposttime'] = $timestamp;
                 //
-                $new_ucode = md5($cur_uid.$cur_user['password'].$cur_user['lastposttime'].$cur_user['lastreplytime']);
+                $new_ucode = md5($cur_uid.$cur_user['password'].$cur_user['regtime'].$cur_user['lastposttime'].$cur_user['lastreplytime']);
                 setcookie("cur_uid", $cur_uid, $timestamp+ 86400 * 365, '/');
                 setcookie("cur_uname", $cur_uname, $timestamp+86400 * 365, '/');
                 setcookie("cur_ucode", $new_ucode, $timestamp+86400 * 365, '/');
-                // mentions
+                
+                // mentions 没有提醒用户的id
                 $mentions = find_mentions(' '.$p_title.' '.$p_content, $cur_uname);
                 if($mentions && count($mentions)<=10){
                     foreach($mentions as $m_name){
@@ -73,7 +88,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $p_title = $p_content = '';
                 header('location: /t-'.$new_aid);
                 exit;
-
             }else{
                 $tip = '标题'.mb_strlen($p_title,'utf-8').' 或 内容'.mb_strlen($p_content,'utf-8').' 太长了';
             }
@@ -96,6 +110,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 $title = '发新帖子';
 // 设置处理图片的最大宽度
 $img_max_w = 650;
+$newpost_page = '1';
 
 $pagefile = dirname(__FILE__) . '/templates/default/'.$tpl.'newpost.php';
 

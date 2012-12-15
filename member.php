@@ -14,7 +14,11 @@ if(preg_match('/^[a-zA-Z0-9\x80-\xff]{1,20}$/i', $g_mid)){
         $query = "SELECT id,name,flag,avatar,url,articles,replies,regtime,about FROM yunbbs_users WHERE name='$g_mid'";
     }
 }else{
-    exit('404');
+    header("HTTP/1.0 404 Not Found");
+    header("Status: 404 Not Found");
+    include(dirname(__FILE__) . '/404.html');
+    exit;
+    
 }
 
 $m_obj = $DBS->fetch_one_array($query);
@@ -27,11 +31,11 @@ if($m_obj){
     }
     if($m_obj['flag'] == 0){
         if(!$cur_user || ($cur_user && $cur_user['flag']<99)){
-            header("content-Type: text/html; charset=UTF-8");
-            exit('该用户已被禁用');
+            //header("content-Type: text/html; charset=UTF-8");
+            //exit('该用户已被禁用');
         }
     }
-    
+    $openid_user = $DBS->fetch_one_array("SELECT name FROM yunbbs_qqweibo WHERE uid='".$mid."'");
 }else{
     exit('404');
 }
@@ -40,7 +44,7 @@ $m_obj['regtime'] = showtime($m_obj['regtime']);
 
 // 获取用户最近文章列表
 if($m_obj['articles']){
-    $mc_key = 'member-article-list-'.$mid;
+    
     $query_sql = "SELECT a.id,a.cid,a.ruid,a.title,a.addtime,a.edittime,a.comments,c.name as cname,ru.name as rauthor
         FROM yunbbs_articles a 
         LEFT JOIN yunbbs_categories c ON c.id=a.cid
@@ -67,10 +71,10 @@ if($m_obj['articles']){
 $title = '会员: '.$m_obj['name'];
 $newest_nodes = get_newest_nodes();
 $canonical = '/member/'.$m_obj['id'];
+$meta_des = $m_obj['name'].' - '.htmlspecialchars(mb_substr($m_obj['about'], 0, 150, 'utf-8'));
 
 $pagefile = dirname(__FILE__) . '/templates/default/'.$tpl.'member.php';
 
 include(dirname(__FILE__) . '/templates/default/'.$tpl.'layout.php');
-
 
 ?>

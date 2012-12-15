@@ -7,18 +7,25 @@ include(dirname(__FILE__) . '/common.php');
 if (!$cur_user || $cur_user['flag']<99) exit('error: 403 Access Denied');
 
 $tid = intval($_GET['tid']);
-$query = "SELECT id,cid,title,content,closecomment FROM yunbbs_articles WHERE id='$tid'";
+$query = "SELECT id,cid,title,content,closecomment,visible FROM yunbbs_articles WHERE id='$tid'";
 $t_obj = $DBS->fetch_one_array($query);
 if(!$t_obj){
     exit('404');
 }
+
 if($t_obj['closecomment']){
-    $ck = 'checked';
+    $t_obj['closecomment'] = 'checked';
 }else{
-    $ck = '';
+    $t_obj['closecomment'] = '';
 }
 
-// 获取热点分类
+if($t_obj['visible']){
+    $t_obj['visible'] = 'checked';
+}else{
+    $t_obj['visible'] = '';
+}
+
+// 获取1000个热点分类
 $query = $DBS->query("SELECT `id`, `name` FROM `yunbbs_categories` ORDER BY  `articles` DESC LIMIT 1000");
 $all_nodes = array();
 while($node = $DBS->fetch_array($query)) {
@@ -33,19 +40,18 @@ if( !array_key_exists($t_obj['cid'], $all_nodes) ){
 unset($node);
 $DBS->free_result($query);
 
-
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $old_cid = $t_obj['cid'];
     $p_cid = $_POST['select_cid'];
     $p_title = addslashes(trim($_POST['title']));
     $p_content = addslashes(trim($_POST['content']));
     $p_closecomment = intval($_POST['closecomment']);
+    $p_visible = intval($_POST['visible']);
     
     if($p_title){
         $p_title = htmlspecialchars($p_title);
         $p_content = htmlspecialchars($p_content);
-        $DBS->unbuffered_query("UPDATE yunbbs_articles SET cid='$p_cid',title='$p_title',content='$p_content',closecomment='$p_closecomment' WHERE id='$tid'");
-        
+        $DBS->unbuffered_query("UPDATE yunbbs_articles SET cid='$p_cid',title='$p_title',content='$p_content',closecomment='$p_closecomment',visible='$p_visible' WHERE id='$tid'");
         if($p_cid != $old_cid){
             $DBS->unbuffered_query("UPDATE yunbbs_categories SET articles=articles+1 WHERE id='$p_cid'");
             $DBS->unbuffered_query("UPDATE yunbbs_categories SET articles=articles-1 WHERE id='$old_cid'");

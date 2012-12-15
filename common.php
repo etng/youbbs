@@ -1,5 +1,10 @@
 <?php
-error_reporting(0);
+/**
+ *程序官方支持社区 http://youbbs.sinaapp.com/
+ *欢迎交流！
+ *youBBS是开源项目，可自由修改，但要保留Powered by 链接信息
+ */
+define('SAESPOT_VER', '1.03');
 if (!defined('IN_SAESPOT')) exit('error: 403 Access Denied');
 
 $mtime = explode(' ', microtime());
@@ -40,10 +45,12 @@ $cur_uname = $_COOKIE['cur_uname'];
 $cur_ucode = $_COOKIE['cur_ucode'];
 
 if($cur_uname && $cur_uid && $cur_ucode){
+    $u_key = 'u_'.$cur_uid;
+
 	// 从数据库里读取
 	$db_user = $DBS->fetch_one_array("SELECT * FROM yunbbs_users WHERE id='".$cur_uid."' LIMIT 1");
 	if($db_user){
-		$db_ucode = md5($db_user['id'].$db_user['password'].$db_user['lastposttime'].$db_user['lastreplytime']);
+		$db_ucode = md5($db_user['id'].$db_user['password'].$db_user['regtime'].$db_user['lastposttime'].$db_user['lastreplytime']);
 		if($cur_uname == $db_user['name'] && $cur_ucode == $db_ucode){
 			//设置cookie
 			setcookie('cur_uid', $cur_uid, $timestamp+ 86400 * 365, '/');
@@ -100,7 +107,7 @@ if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) 
     $onlineip = $_SERVER['REMOTE_ADDR'];
 }
 $onlineip = addslashes($onlineip);
-if(!$onlineip) exit('error: 400 no ip');
+//if(!$onlineip) exit('error: 400 no ip');
 
 $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 if($user_agent){
@@ -119,7 +126,9 @@ if($user_agent){
         $tpl = '';
     }
 }else{
-    exit('error: 400 no agent');
+    //exit('error: 400 no agent');
+	$is_spider = '';
+	$is_mobie = '';
 }
 
 //设置基本环境变量

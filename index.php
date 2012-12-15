@@ -22,7 +22,6 @@ while ($article = $DBS->fetch_array($query)) {
 unset($article);
 $DBS->free_result($query);
 
-
 // 页面变量
 $title = $options['name'];
 
@@ -33,6 +32,9 @@ if(count($newest_nodes)==$options['newest_node_num']){
 }
 
 $links = get_links();
+if($options['site_des']){
+    $meta_des = htmlspecialchars(mb_substr($options['site_des'], 0, 150, 'utf-8'));
+}
 
 $pagefile = dirname(__FILE__) . '/templates/default/'.$tpl.'home.php';
 

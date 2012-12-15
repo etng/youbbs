@@ -26,6 +26,10 @@ echo '
         <td width="auto" align="left"><input type="text" class="sl wb50" name="name" value="',htmlspecialchars($options['name']),'" /></td>
     </tr>
     <tr>
+        <td width="120" align="right">网站描述</td>
+        <td width="auto" align="left"><textarea class="ml wb80 h60" name="site_des">',str_replace('\\', '', $options['site_des']),'</textarea> <br/>给搜索引擎看的，150字以内</td>
+    </tr>
+    <tr>
         <td width="120" align="right">备案号</td>
         <td width="auto" align="left"><input type="text" class="sl wb60" name="icp" value="',$options['icp'],'" /> <br/>若有就填，如 京ICP证0603xx号</td>
     </tr>
@@ -37,7 +41,26 @@ echo '
         <td width="120" align="right"></td>
         <td width="auto" align="left"><input type="submit" value=" 保 存 " name="submit" class="textbtn" /></td>
     </tr>
-    
+    <tr bgcolor="#EEE" height="24">
+        <td width="120" align="right"> » </td>
+        <td width="82%" align="left">QQ登录设置（可选，不用则留空），参考<a href="http://youbbs.sinaapp.com/t-263" target="_blank">用QQ登录</a></td>
+    </tr>
+    <tr>
+        <td width="120" align="right">scope</td>
+        <td width="auto" align="left"><input type="text" class="sl wb60" name="qq_scope" value="',$options['qq_scope'],'" /> <br/>默认get_user_info，可选get_info</td>
+    </tr>
+    <tr>
+        <td width="120" align="right">appid</td>
+        <td width="auto" align="left"><input type="text" class="sl wb60" name="qq_appid" value="',$options['qq_appid'],'" /></td>
+    </tr>
+    <tr>
+        <td width="120" align="right">appkey</td>
+        <td width="auto" align="left"><input type="text" class="sl wb60" name="qq_appkey" value="',$options['qq_appkey'],'" /></td>
+    </tr>
+    <tr>
+        <td width="120" align="right"></td>
+        <td width="auto" align="left"><input type="submit" value=" 保 存 " name="submit" class="textbtn" /></td>
+    </tr>
     <tr bgcolor="#EEE" height="24">
         <td width="120" align="right"> » </td>
         <td width="auto" align="left">附件设置</td>
@@ -95,6 +118,10 @@ echo '
     <tr>
         <td width="120" align="right">放在页面底部的<br/>统计代码<br/>(默认留空)</td>
         <td width="auto" align="left"><textarea class="ml wb80" name="analytics_code">',str_replace('\\', '', $options['analytics_code']),'</textarea> 示例： 直接粘贴google 或 百度统计代码</td>
+    </tr>
+    <tr>
+        <td width="120" align="right">垃圾信息关键字<br/>一般是网址(默认留空)</td>
+        <td width="auto" align="left"><textarea class="ml wb80" name="spam_words">',$options['spam_words'],'</textarea> 网址格式"www.xxx.com"，用逗号分隔，当用户发布的信息包含某个垃圾关键字时会自动禁用该用户，请勿滥用！</td>
     </tr>
     <tr>
         <td width="120" align="right">安全图床域名<br/>参见 <a href="http://www.saespot.com/t-3-7" target="_blank">外链图片安全</a><br/>(默认留空)</td>

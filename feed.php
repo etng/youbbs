@@ -25,7 +25,6 @@ while ($article = $DBS->fetch_array($query)) {
 unset($article);
 $DBS->free_result($query);
 
-
 $base_url = 'http://'.$_SERVER['HTTP_HOST'];
 
 

@@ -13,8 +13,6 @@ if(!$r_obj){
     exit('404');
 }
 
-
-
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $r_content = addslashes(trim($_POST['content']));
     

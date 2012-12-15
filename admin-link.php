@@ -26,7 +26,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $n_url = trim($_POST['url']);
         if($n_name && $n_url){
             if($DBS->query("INSERT INTO yunbbs_links (id,name,url) VALUES (null,'$n_name','$n_url')")){
-                //
                 $tip1 = '已成功添加';
             }else{
                 $tip1 = '数据库更新失败，修改尚未保存，请稍后再试';
@@ -39,7 +38,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $n_url = trim($_POST['url']);
         if($n_name && $n_url){
             if($DBS->unbuffered_query("UPDATE yunbbs_links SET name='$n_name',url='$n_url' WHERE id='$lid'")){
-                //
                 $l_obj['name'] = $n_name;
                 $l_obj['url'] = $n_url;
                 $tip2 = '已成功保存';

@@ -133,9 +133,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         $new_md5pw = md5($password_new);
                         
                         if($DBS->unbuffered_query("UPDATE yunbbs_users SET password='$new_md5pw' WHERE id='$cur_uid'")){
-                            //更新cookie
+                            //更新缓存和cookie
                             $cur_user['password'] = $new_md5pw;
-                            $new_ucode = md5($cur_uid.$new_md5pw.$cur_user['lastposttime'].$cur_user['lastreplytime']);
+                            $new_ucode = md5($cur_uid.$new_md5pw.$cur_user['regtime'].$cur_user['lastposttime'].$cur_user['lastreplytime']);
                             setcookie("cur_uid", $cur_uid, time()+ 86400 * 365, '/');
                             setcookie("cur_uname", $cur_uname, time()+86400 * 365, '/');
                             setcookie("cur_ucode", $new_ucode, time()+86400 * 365, '/');
@@ -155,7 +155,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }else{
             $tip3 = '请填写完整，当前密码、新密码、重复新密码';
         }
+    }else if($action == 'setpw'){
+        $password_new = addslashes(trim($_POST['password_new']));
+        $password_again = addslashes(trim($_POST['password_again']));
+        if($password_new && $password_again){
+            if($password_new == $password_again){
+                $new_md5pw = md5($password_new);
+                
+                if($DBS->unbuffered_query("UPDATE yunbbs_users SET password='$new_md5pw' WHERE id='$cur_uid'")){
+                    //更新缓存和cookie
+                    $cur_user['password'] = $new_md5pw;
+                    $new_ucode = md5($cur_uid.$new_md5pw.$cur_user['regtime'].$cur_user['lastposttime'].$cur_user['lastreplytime']);
+                    setcookie("cur_uid", $cur_uid, time()+ 86400 * 365, '/');
+                    setcookie("cur_uname", $cur_uname, time()+86400 * 365, '/');
+                    setcookie("cur_ucode", $new_ucode, time()+86400 * 365, '/');
+                    $tip3 = '登录密码已成功设置，请记住登录密码';
+                }else{
+                    $tip3 = '数据保存失败，请稍后再试';
+                }
+            }else{
+                $tip3 = '登录密码、重复新密码不一致';
+            }
+        }else{
+            $tip3 = '请填写完整，登录密码、重复密码';
+        }
     }
+
 }
 
 // 页面变量

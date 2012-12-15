@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $about = addslashes(trim($_POST['about']));
         
         if($DBS->unbuffered_query("UPDATE yunbbs_users SET email='$email', url='$url', about='$about' WHERE id='$mid'")){
-            //
+            //更新缓存
             $m_obj['email'] = $email;
             $m_obj['url'] = $url;
             $m_obj['about'] = $about;
@@ -116,7 +116,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     //
                     if($cur_user['avatar']!=$mid){
                         if($DBS->unbuffered_query("UPDATE yunbbs_users SET avatar='$mid' WHERE id='$mid'")){
-                            //
+                            // pass
                         }else{
                             $tip2 = '数据保存失败，请稍后再试';
                         }
@@ -139,7 +139,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $new_md5pw = md5($password_new);
                 
                 if($DBS->unbuffered_query("UPDATE yunbbs_users SET password='$new_md5pw' WHERE id='$mid'")){
-                    //
                     $tip3 = '密码已成功更改，请记住新密码';
                 }else{
                     $tip3 = '数据保存失败，请稍后再试';

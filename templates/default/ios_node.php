@@ -17,6 +17,10 @@ echo '    <div class="c"></div>
 
 <div class="main-box home-box-list">';
 
+if($c_obj['about']){
+    echo '<div class="post-list grey"><p>',$c_obj['about'],'</p></div>';
+}
+
 foreach($articledb as $article){
 echo '
 <div class="post-list">

@@ -1,10 +1,9 @@
 <?php
-/*
-程序官方支持社区 http://youbbs.sinaapp.com/
-欢迎交流！
-*/
-
-define('SAESPOT_VER', '1.02');
+/**
+ *程序官方支持社区 http://youbbs.sinaapp.com/
+ *欢迎交流！
+ *youBBS是开源项目，可自由修改，但要保留Powered by 链接信息
+ */
 
 //数据库主机名或IP
 $servername = 'localhost';
@@ -21,5 +20,5 @@ $dbport = '3306';
 $dbcharset = 'utf8';
 //系统默认字符集
 $charset = 'utf-8';
-    
+
 ?>

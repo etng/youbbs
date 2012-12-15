@@ -4,6 +4,11 @@ define('IN_SAESPOT', 1);
 include(dirname(__FILE__) . '/config.php');
 include(dirname(__FILE__) . '/common.php');
 
+if($options['qq_appid'] && $options['qq_appkey']){
+    header("content-Type: text/html; charset=UTF-8");
+    echo '现在流行用 <a href="/qqlogin">QQ登录了</a>';
+    exit;
+}
 
 if($cur_user){
     header('location: /');
@@ -74,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
         
         //设置cookie
-        $db_ucode = md5($new_uid.$pwmd5.'00');
+        $db_ucode = md5($new_uid.$pwmd5.$timestamp.'00');
         $cur_uid = $new_uid;
         setcookie("cur_uid", $cur_uid, $timestamp+ 86400 * 365, '/');
         setcookie("cur_uname", $name, $timestamp+86400 * 365, '/');
@@ -86,7 +91,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 // 页面变量
 $title = '注 册';
-
 
 $pagefile = dirname(__FILE__) . '/templates/default/'.$tpl.'sigin_login.php';
 

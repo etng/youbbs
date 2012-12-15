@@ -14,7 +14,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $action = trim($_POST['action']);
     if($action =='base'){
         // 修改设置一些默认参数
-        $_POST['name'] = filter_chr($_POST['name']);        
+        $_POST['name'] = filter_chr($_POST['name']);  
+        $_POST['site_des'] = filter_chr($_POST['site_des']);      
         $_POST['icp'] = filter_chr($_POST['icp']);
         
         $_POST['home_shownum'] = intval($_POST['home_shownum']);
@@ -76,6 +77,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_POST['upyun_user'] = filter_chr($_POST['upyun_user']);
         $_POST['upyun_pw'] = filter_chr($_POST['upyun_pw']);
         
+        // qq_scope
+        $qq_scope = filter_chr($_POST['qq_scope']);
+        if(!$qq_scope) $qq_scope = 'get_user_info';
+        if(!strpos(' '.$qq_scope, 'get_info') && !strpos(' '.$qq_scope, 'get_user_info')){
+            $qq_scope = 'get_user_info,'.$qq_scope;
+        }
+        $_POST['qq_scope'] = $qq_scope;
+
         // 安全图床域名白名单 格式 www.xxx.com 
         $safe_imgdomain = trim($_POST['safe_imgdomain']);
         if($safe_imgdomain){
@@ -123,6 +132,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             }
         }
         
+        // spam_words
+        $spam_words = filter_chr($_POST['spam_words']);
+        $spam_words = str_replace("，", ",", $spam_words);
+        $spam_words_arr = explode(",", $spam_words);
+        $spam_words_arr = array_filter(array_unique($spam_words_arr));
+        $_POST['spam_words'] = implode(",", $spam_words_arr);
+        
         // ext_list
         $_POST['ext_list'] = filter_chr($_POST['ext_list']);
         if($_POST['ext_list'] && ($options['ext_list'] != $_POST['ext_list'] ) ){
@@ -155,15 +171,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $tip1 = '已成功更改了 '.$changed.' 个设置';
         }
     }else if($action =='flushmc'){
-        $tip2 = '没有缓存功能';
+        $tip2 = '没有用到缓存';
     }else if($action =='flushdata'){
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_articles`");
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_categories`");
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_comments`");
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_links`");
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_settings`");
-        $DBS->query("DROP TABLE `yunbbs_users`");
-        
+        $DBS->query("DROP TABLE IF EXISTS `yunbbs_users`");
+        $DBS->query("DROP TABLE IF EXISTS `yunbbs_favorites`");
+        $DBS->query("DROP TABLE IF EXISTS `yunbbs_qqweibo`");
         
         $tip3 = '所有数据已删除';
         header('location: /install');
