@@ -4,11 +4,14 @@ define('IN_SAESPOT', 1);
 include(dirname(__FILE__) . '/config.php');
 include(dirname(__FILE__) . '/common.php');
 
+/*
+// 屏蔽下面一段可以让已注册用户通过打开 /login 登录
 if($options['qq_appid'] && $options['qq_appkey']){
     header("content-Type: text/html; charset=UTF-8");
     echo '现在流行用 <a href="/qqlogin">QQ登录了</a>';
     exit;
 }
+*/
 
 if($cur_user){
     // 如果已经登录用户无聊打开这网址就让他重新登录吧
