@@ -179,7 +179,7 @@ if ($cur_user){
     $user_fav = $DBS->fetch_one_array("SELECT * FROM yunbbs_favorites WHERE uid='".$cur_uid."'");
     
     if($user_fav && $user_fav['content']){
-        if(in_array($tid, explode(",", $user_fav['content']))){
+        if( strpos(' ,'.$user_fav['content'].',', ','.$tid.',') ){
             $in_favorites = '1';
         }
     }

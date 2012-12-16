@@ -38,6 +38,7 @@ if($act && $tid){
                     $DBS->unbuffered_query("UPDATE yunbbs_favorites SET articles='$articles',content='$content' WHERE uid='$cur_uid'");
                     $DBS->unbuffered_query("UPDATE yunbbs_articles SET favorites=favorites+1 WHERE id='$tid'");
                 }
+                unset($ids_arr);
             }else{
                 $user_fav['content'] = $tid;
                 $user_fav['articles'] = 1;
@@ -70,7 +71,7 @@ if($act && $tid){
                     $DBS->unbuffered_query("UPDATE yunbbs_favorites SET articles='$articles',content='$content' WHERE uid='$cur_uid'");
                     $DBS->unbuffered_query("UPDATE yunbbs_articles SET favorites=favorites-1 WHERE id='$tid'");
                 }
-                
+                unset($ids_arr);
             }
         }
     }
