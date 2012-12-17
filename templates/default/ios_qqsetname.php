@@ -24,7 +24,7 @@ foreach($errors as $error){
 echo '</p>
 <h4 class="grey">欢迎<span class="red">',$name,'</span>用QQ成功登录本站，请先设置您在本站显示的名字：</h4>
 <br/><br/>
-<h4 class="grey"> • 第一次来，请先设置在网站显示的名字</h4>
+<h4 class="grey"> • 第一次来？请先设置在网站显示的名字</h4>
 <br/>
 <form action="',$_SERVER["REQUEST_URI"],'" method="post">
 <input type="hidden" name="action" value="newuser"/>
@@ -34,12 +34,12 @@ echo '</p>
 </form>';
 
 echo '<p>&nbsp;</p>
-<h4 class="grey"> • 以前注册过，请先输入名字和密码完成绑定</h4>
+<h4 class="grey"> • 以前有注册？请先输入原登录名和密码完成绑定</h4>
 <br/>
 <form action="',$_SERVER["REQUEST_URI"],'" method="post">
 <input type="hidden" name="action" value="bind"/>
-<p><label>名　字： <input type="text" name="name" class="sl wb50" value="',htmlspecialchars($name),'" /></label>  <br/><span class="fs12">允许字母、数字、中文，不能全为数字，4~12个字节</span></p>
-<p><label>密　码： <input type="password" name="pw" class="sl wb50" value="" /></label><span class="grey fs12"> <br/>忘记密码？<a href="/forgot">马上找回</a></span></p>
+<p><label>原登录名： <input type="text" name="name" class="sl wb50" value="" /></label>  <br/><span class="fs12">允许字母、数字、中文，不能全为数字，4~12个字节</span></p>
+<p><label>登录密码： <input type="password" name="pw" class="sl wb50" value="" /></label><span class="grey fs12"> <br/>忘记密码？<a href="/forgot">马上找回</a></span></p>
 <p><input type="submit" value=" 绑定 " name="submit" class="textbtn" style="margin-left:60px;" /> </p>
 
 </form>';

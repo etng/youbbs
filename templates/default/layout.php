@@ -56,6 +56,7 @@ if($cur_user){
 }else{
     if($options['qq_appid'] && $options['qq_appkey']){
         echo '<a href="/qqlogin" rel="nofollow"><img src="/static/connect_logo_7.png" alt="QQ微博登录"/></a>';
+        echo '<a href="/login" rel="nofollow">登录</a>';
     }else{
         echo '<a href="/login" rel="nofollow">登录</a>';
         if(!$options['close_register']){
