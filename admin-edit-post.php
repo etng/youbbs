@@ -69,6 +69,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 // 页面变量
 $title = '修改帖子 - '.$t_obj['title'];
+// 设置回复图片最大宽度
+$img_max_w = 650;
 
 
 $pagefile = dirname(__FILE__) . '/templates/default/'.$tpl.'admin-edit-post.php';
