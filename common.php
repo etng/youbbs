@@ -81,7 +81,7 @@ if(strpos($_SERVER["REQUEST_URI"], '.php')){
 
 // 只允许注册用户访问
 if($options['authorized'] && (!$cur_user || $cur_user['flag']<5)){
-    if( !in_array($url_path, array('login','logout','sigin','forgot'))){
+    if( !in_array($url_path, array('login','logout','sigin','forgot','qqlogin','qqcallback','qqsetname'))){
         header('location: /login');
         exit('authorized only');
     }
