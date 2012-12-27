@@ -63,15 +63,15 @@ if($cur_uname && $cur_uid && $cur_ucode){
 
 }
 
+include (dirname(__FILE__) . '/model.php');
+
 // 获得散列
 function formhash() {
-	global $cur_user, $timestamp;
-	return substr(md5(substr($timestamp, 0, -7).$cur_user['id'].$cur_user['password']), 8, 8);
+	global $cur_ucode, $options;
+	return substr(md5($options['site_create'].$cur_ucode.'yoursecretwords'), 8, 8);
 }
 
 $formhash = formhash();
-
-include (dirname(__FILE__) . '/model.php');
 
 // 限制不能打开.php的网址
 if(strpos($_SERVER["REQUEST_URI"], '.php')){
