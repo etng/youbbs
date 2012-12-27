@@ -5,12 +5,20 @@ include(dirname(__FILE__) . '/config.php');
 include(dirname(__FILE__) . '/common.php');
 
 /*
-// 屏蔽下面一段可以让已注册用户通过打开 /login 登录
-if($options['qq_appid'] && $options['qq_appkey']){
+// 屏蔽下面几行可以通过 用户名和密码 登录
+if(($options['qq_appid'] && $options['qq_appkey']) || ($options['wb_key'] && $options['wb_secret'])){
     header("content-Type: text/html; charset=UTF-8");
-    echo '现在流行用 <a href="/qqlogin">QQ登录了</a>';
+    echo '请用 ';
+    if($options['wb_key'] && $options['wb_secret']){
+        echo '&nbsp;<a href="/wblogin">微博登录</a>';
+    }
+    if($options['qq_appid'] && $options['qq_appkey']){
+        echo '&nbsp;<a href="/qqlogin">QQ登录</a>';
+    }
+    echo '&nbsp;<a href="/">返回首页</a>';
     exit;
 }
+
 */
 
 if($cur_user){

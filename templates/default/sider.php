@@ -111,7 +111,7 @@ echo '    </div>
 if(isset($site_infos)){
 echo '
 <div class="sider-box">
-    <div class="sider-box-title">站点运行信息</div>
+    <div class="sider-box-title">站点运行信息（',round(($timestamp - $options['site_create'])/86400),'天）</div>
     <div class="sider-box-content">
     <ul>';
 foreach($site_infos as $k=>$v){

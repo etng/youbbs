@@ -36,6 +36,7 @@ if($m_obj){
         }
     }
     $openid_user = $DBS->fetch_one_array("SELECT name FROM yunbbs_qqweibo WHERE uid='".$mid."'");
+    $weibo_user = $DBS->fetch_one_array("SELECT `openid` FROM `yunbbs_weibo` WHERE `uid`='".$mid."'");
 }else{
     exit('404');
 }

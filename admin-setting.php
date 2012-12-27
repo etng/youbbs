@@ -158,13 +158,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
         $changed = 0;
         foreach($options as $k=>$v){
-            // 使用反斜线引用字符串
-            $newv = addslashes(trim($_POST[$k]));
-            if(str_replace('\\', '', $newv)!= $v){
-                $DBS->unbuffered_query("UPDATE yunbbs_settings SET value='$newv' WHERE title='$k'");
-                $changed += 1;
-                // 更新原数据 去掉反斜线
-                $options[$k] = str_replace('\\', '', $newv);
+            if($k != 'site_create'){
+                // 使用反斜线引用字符串
+                $newv = addslashes(trim($_POST[$k]));
+                if(str_replace('\\', '', $newv)!= $v){
+                    $DBS->unbuffered_query("UPDATE yunbbs_settings SET value='$newv' WHERE title='$k'");
+                    $changed += 1;
+                    // 更新原数据 去掉反斜线
+                    $options[$k] = str_replace('\\', '', $newv);
+                }
             }
         }
         if($changed){
@@ -181,6 +183,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_users`");
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_favorites`");
         $DBS->query("DROP TABLE IF EXISTS `yunbbs_qqweibo`");
+        $DBM->query("DROP TABLE IF EXISTS `yunbbs_weibo`");
         
         $tip3 = '所有数据已删除';
         header('location: /install');

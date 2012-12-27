@@ -22,7 +22,7 @@ foreach($errors as $error){
 }
 
 echo '</p>
-<h4 class="grey">欢迎<span class="red">',$name,'</span>用QQ成功登录本站，请先设置您在本站显示的名字：</h4>
+<h4 class="grey">欢迎<span class="red">',$name,'</span>用 <span class="red">',$logintype,'</span> 成功登录本站，请先设置您在本站显示的名字：</h4>
 <br/><br/>
 <h4 class="grey"> • 第一次来？请先设置在网站显示的名字</h4>
 <br/>

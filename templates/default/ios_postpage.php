@@ -37,7 +37,7 @@ if($cur_user && $cur_user['flag']>4){
 }
 echo '        </div>
     </div>
-    <div class="detail-avatar"><a href="/member/',$t_obj['uid'],'"><img src="/avatar/normal/',$t_obj['uavatar'],'.png" alt="',$t_obj['uauthor'],'" />    </a></div>
+    <div class="detail-avatar"><a href="/member/',$t_obj['uid'],'"><img src="/avatar/normal/',$t_obj['uavatar'],'.png" alt="',$t_obj['author'],'" />    </a></div>
     <div class="c"></div>
 </div>
 <div class="topic-content">

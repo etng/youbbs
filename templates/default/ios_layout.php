@@ -17,14 +17,14 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 if($options['head_meta']){
     echo $options['head_meta'];
 }
-if($is_spider){
-    if(isset($meta_des) && $meta_des){
-        echo '<meta name="description" content="',$meta_des,'" />';
-    }
-    if(isset($canonical)){
-        echo '<link rel="canonical" href="http://',$_SERVER['HTTP_HOST'],$canonical,'" />';
-    }
+
+if(isset($meta_des) && $meta_des){
+    echo '<meta name="description" content="',$meta_des,'" />';
 }
+if(isset($canonical)){
+    echo '<link rel="canonical" href="http://',$_SERVER['HTTP_HOST'],$canonical,'" />';
+}
+
 echo '
 </head>
 <body>
@@ -36,11 +36,14 @@ echo '
 if($cur_user){
     echo '<a href="/member/',$cur_user['id'],'"><img src="/avatar/mini/',$cur_user['avatar'],'.png" alt="',$cur_user['name'],'"/></a>&nbsp;&nbsp;<a href="/favorites">★</a>&nbsp;&nbsp;&nbsp;<a href="/setting">设置</a>&nbsp;&nbsp;<a href="/logout">退出</a>';
 }else{
+    if($options['wb_key'] && $options['wb_secret']){
+        echo '<a href="/wblogin" rel="nofollow"><img src="/static/weibo_login_55_24.png" alt="微博登录"/></a>';
+    }
     if($options['qq_appid'] && $options['qq_appkey']){
-        echo '<a href="/qqlogin" rel="nofollow"><img src="/static/connect_logo_7.png"/></a>';
-        echo '<a href="/login" rel="nofollow">登录</a>';
-    }else{
-        echo '<a href="/login">登录</a>';
+        echo '<a href="/qqlogin" rel="nofollow"><img src="/static/qq_logo_55_24.png" alt="QQ登录"/></a>';
+    }
+    echo '&nbsp;<a href="/login" rel="nofollow">登录</a>';
+    if(!($options['wb_key'] && $options['wb_secret']) && !($options['qq_appid'] && $options['qq_appkey'])){
         if(!$options['close_register']){
             echo '&nbsp;&nbsp;&nbsp;<a href="/sigin">注册</a>';
         }
@@ -62,6 +65,9 @@ if($cur_user){
     }else if($cur_user['flag'] == 1){
         echo '<div class="tiptitle">站内提醒 &raquo; <span style="color:yellow;">帐户在等待管理员审核</span></div>';
     }else{
+        if(!$cur_user['password']){
+            echo '<div class="tiptitle">站内提醒 &raquo; <a href="/setting#3" style="color:yellow;">设置登录密码</a></div>';
+        }
         if($cur_user['notic']){
             $notic_n = count(array_unique(explode(',', $cur_user['notic'])))-1;
             echo '<div class="tiptitle">站内提醒 &raquo; <a href="/notifications" style="color:yellow;">',$notic_n,'条提醒</a></div>';
@@ -84,7 +90,7 @@ echo '</span>
 
 if($cur_user && $cur_user['flag']>=99){
 echo '
-<div class="title">管理员面板 <a href="http://youbbs.sinaapp.com/">youbbs官方支持</a></div>
+<div class="title">管理员面板 <a href="http://youbbs.sinaapp.com/" target="_blank">youbbs官方支持</a></div>
 <div class="main-box main-box-node">
 <div class="btn">
 <a href="/admin-node">分类管理</a><a href="/admin-setting">网站设置</a><a href="/admin-user-list">用户管理</a><a href="/admin-link-list">链接管理</a>

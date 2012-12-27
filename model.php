@@ -10,6 +10,17 @@ while($setting = $DBS->fetch_array($query)) {
     $options[$setting['title']] = $setting['value'];
 }
 
+// 检测新增的 site_create
+if( !$options['site_create']){
+    $query = "SELECT regtime FROM yunbbs_users WHERE id='1'";
+    $m_obj = $DBS->fetch_one_array($query);
+    if($m_obj){
+        $site_create = $m_obj['regtime'];
+        $DBS->query("INSERT INTO yunbbs_settings VALUES('site_create', '$site_create')");
+        $options['site_create'] = $site_create;
+    }
+}
+
 $options = stripslashes_array($options);
 
 if(!$options['safe_imgdomain']){

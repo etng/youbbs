@@ -62,6 +62,7 @@ CREATE TABLE yunbbs_settings (
 
 INSERT INTO yunbbs_settings VALUES('name', 'youbbs');
 INSERT INTO yunbbs_settings VALUES('site_des', '又是一个YouBBS');
+INSERT INTO yunbbs_settings VALUES('site_create', '0');
 INSERT INTO yunbbs_settings VALUES('icp', '');
 INSERT INTO yunbbs_settings VALUES('admin_email', '');
 INSERT INTO yunbbs_settings VALUES('home_shownum', '20');
@@ -102,6 +103,8 @@ INSERT INTO yunbbs_settings VALUES('spam_words', '');
 INSERT INTO yunbbs_settings VALUES('qq_scope', 'get_user_info');
 INSERT INTO yunbbs_settings VALUES('qq_appid', '');
 INSERT INTO yunbbs_settings VALUES('qq_appkey', '');
+INSERT INTO yunbbs_settings VALUES('wb_key', '');
+INSERT INTO yunbbs_settings VALUES('wb_secret', '');
 
 DROP TABLE IF EXISTS yunbbs_users;
 CREATE TABLE yunbbs_users (
@@ -139,6 +142,17 @@ CREATE TABLE yunbbs_qqweibo (
   uid mediumint(8) unsigned NOT NULL default '0',
   name varchar(20) NOT NULL default '',
   openid char(32) NOT NULL,
+  PRIMARY KEY (id),
+  KEY uid (uid),
+  KEY openid (openid)
+) ENGINE=MyISAM ;
+
+DROP TABLE IF EXISTS yunbbs_weibo;
+CREATE TABLE yunbbs_weibo (
+  id mediumint(8) unsigned NOT NULL auto_increment,
+  uid mediumint(8) unsigned NOT NULL default '0',
+  name varchar(20) NOT NULL default '',
+  openid char(12) NOT NULL,
   PRIMARY KEY (id),
   KEY uid (uid),
   KEY openid (openid)

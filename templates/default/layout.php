@@ -18,14 +18,14 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 if($options['head_meta']){
     echo $options['head_meta'];
 }
-if($is_spider){
-    if(isset($meta_des) && $meta_des){
-        echo '<meta name="description" content="',$meta_des,'" />';
-    }
-    if(isset($canonical)){
-        echo '<link rel="canonical" href="http://',$_SERVER['HTTP_HOST'],$canonical,'" />';
-    }
+
+if(isset($meta_des) && $meta_des){
+    echo '<meta name="description" content="',$meta_des,'" />';
 }
+if(isset($canonical)){
+    echo '<link rel="canonical" href="http://',$_SERVER['HTTP_HOST'],$canonical,'" />';
+}
+
 echo '
 </head>
 <body>
@@ -43,6 +43,10 @@ echo '
 if($cur_user){
     echo '<img src="/avatar/mini/',$cur_user['avatar'],'.png" alt="',$cur_user['name'],'"/>&nbsp;&nbsp;&nbsp;';
     
+    if(!$cur_user['password']){
+        //echo '<a href="/setting#3" style="color:yellow;">设置登录密码</a>&nbsp;&nbsp;&nbsp;';
+    }
+    
     if($cur_user['notic']){
         $notic_n = count(array_unique(explode(',', $cur_user['notic'])))-1;
         echo '<a href="/notifications" style="color:yellow;">',$notic_n,'条提醒</a>&nbsp;&nbsp;&nbsp;';
@@ -54,13 +58,17 @@ if($cur_user){
     }
     echo '<a href="/favorites" title="收藏的帖子">★</a>&nbsp;&nbsp;&nbsp;<a href="/member/',$cur_user['id'],'">',$cur_user['name'],'</a>&nbsp;&nbsp;&nbsp;<a href="/setting">设置</a>&nbsp;&nbsp;&nbsp;<a href="/logout">退出</a>';
 }else{
+    if($options['wb_key'] && $options['wb_secret']){
+        echo '<a href="/wblogin" rel="nofollow"><img src="/static/weibo_login.png" alt="微博登录" title="用微博帐号登录"/></a>&nbsp;&nbsp;&nbsp;';
+    }
     if($options['qq_appid'] && $options['qq_appkey']){
-        echo '<a href="/qqlogin" rel="nofollow"><img src="/static/connect_logo_7.png" alt="QQ微博登录"/></a>';
-        echo '<a href="/login" rel="nofollow">登录</a>';
-    }else{
-        echo '<a href="/login" rel="nofollow">登录</a>';
+        echo '<a href="/qqlogin" rel="nofollow"><img src="/static/connect_logo_7.png" alt="QQ登录" title="用QQ登录"/></a>&nbsp;&nbsp;&nbsp;';
+        
+    }
+    echo '<a href="/login" rel="nofollow">登录</a>';
+    if(!($options['wb_key'] && $options['wb_secret']) && !($options['qq_appid'] && $options['qq_appkey'])){
         if(!$options['close_register']){
-            echo '&nbsp;&nbsp;&nbsp;<a href="/sigin" rel="nofollow">注册</a>';
+            echo '&nbsp;&nbsp;&nbsp;<a href="/sigin">注册</a>';
         }
     }
 }

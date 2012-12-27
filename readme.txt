@@ -7,3 +7,5 @@ youBBS ÊÇÒ»¿î³¬ÇáÁ¿¼¶µÄÂÛÌ³³ÌÐò£¬»ùÓÚ±ê×¼µÄphp+mysql»·¾³£¬ÎªÁËÈÃurl¸üÓÅÃÀ£¬·þÎñÆ
 youBBSÊÇ¿ªÔ´ÏîÄ¿£¬¿É×ÔÓÉÐÞ¸Ä£¬µ«Òª±£ÁôPowered by Á´½ÓÐÅÏ¢
 
 ÏêÏ¸°²×°ËµÃ÷²Î¼û¹Ù·½ÂÛÌ³ http://youbbs.sinaapp.com/t-101
+
+ÍÆ¼ö£ºÊý¾ÝÖ÷´Ó¶ÁÐ´·ÖÀë¡¢memcachedÌá¸ßÐÔÄÜ¡¢Ò»¼ü°²×°°æ http://t.cn/zjbv7FM

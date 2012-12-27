@@ -136,7 +136,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 /////
 if(isset($gotohome)){
     // 获取用户微博头像
-    if($_SESSION["avatar"] && isset($getavatar) && $options){
+    if($_SESSION["avatar"] && isset($getavatar)){
         $imgurl = $_SESSION["avatar"];
         $opts = array(
           'http'=>array(
@@ -209,7 +209,7 @@ if(isset($gotohome)){
 /////
 // 页面变量
 $title = '设置名字';
-
+$logintype = "QQ";
 
 $pagefile = dirname(__FILE__) . '/templates/default/'.$tpl.'qqsetname.php';
 

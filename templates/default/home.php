@@ -7,6 +7,7 @@ echo '
         <a href="/">',$options['name'],'</a> &raquo; 最近更新 • <a href="/feed">Atom Feed</a>
     </div>';
 if($cur_user && $cur_user['flag']>4 && $newest_nodes){
+    //echo '<div class="float-right grey">请先选择相关主题再发帖</div>';
     echo '<div class="float-right"><a href="/newpost/1" rel="nofollow" class="newpostbtn">+发新帖</a></div>';
 }
 echo '    <div class="c"></div>
@@ -47,6 +48,15 @@ echo '    <div class="c"></div>
 </div>';
 
 }
+
+
+if(count($articledb) == $options['home_shownum']){ 
+echo '<div class="pagination">';
+echo '<a href="/page/2" class="float-right">下一页 &raquo;</a>';
+echo '<div class="c"></div>
+</div>';
+}
+
 
 echo '</div>';
 

@@ -4,7 +4,7 @@
  *欢迎交流！
  *youBBS是开源项目，可自由修改，但要保留Powered by 链接信息
  */
-define('SAESPOT_VER', '1.03');
+define('SAESPOT_VER', '1.04');
 if (!defined('IN_SAESPOT')) exit('error: 403 Access Denied');
 
 $mtime = explode(' ', microtime());
@@ -65,8 +65,8 @@ if($cur_uname && $cur_uid && $cur_ucode){
 
 // 获得散列
 function formhash() {
-	global $cur_user, $timestamp;
-	return substr(md5(substr($timestamp, 0, -7).$cur_user['id'].$cur_user['password']), 8, 8);
+	global $cur_ucode, $options;
+	return substr(md5($options['site_create'].$cur_ucode), 8, 8);
 }
 
 $formhash = formhash();
@@ -81,7 +81,7 @@ if(strpos($_SERVER["REQUEST_URI"], '.php')){
 
 // 只允许注册用户访问
 if($options['authorized'] && (!$cur_user || $cur_user['flag']<5)){
-    if( !in_array($url_path, array('login','logout','sigin','forgot','qqlogin','qqcallback','qqsetname'))){
+    if( !in_array($url_path, array('login','logout','sigin','forgot','qqlogin','qqcallback','qqsetname','wblogin','wbcallback','wbsetname'))){
         header('location: /login');
         exit('authorized only');
     }

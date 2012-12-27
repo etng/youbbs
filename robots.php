@@ -6,7 +6,16 @@ include(dirname(__FILE__) . '/common.php');
 
 header("content-Type: text/plain");
 echo 'User-agent: *
-Allow: /
+Disallow: /login
+Disallow: /newpost/
+Disallow: /setting
+Disallow: /notifications
+Disallow: /sigin
+Disallow: /wbsetname
+Disallow: /qqsetname
+Disallow: /admin
+Disallow: /forgot
+Disallow: /favorites
 
 ';
 

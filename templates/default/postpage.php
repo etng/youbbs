@@ -41,9 +41,9 @@ echo '        </div>
     </div>
     <div class="detail-avatar"><a href="/member/',$t_obj['uid'],'">';
 if($is_spider){
-    echo '<img src="/avatar/large/',$t_obj['uavatar'],'.png" alt="',$t_obj['uauthor'],'" />';
+    echo '<img src="/avatar/large/',$t_obj['uavatar'],'.png" alt="',$t_obj['author'],'" />';
 }else{
-    echo '<img src="/static/grey.gif" data-original="/avatar/large/',$t_obj['uavatar'],'.png" alt="',$t_obj['uauthor'],'" />';
+    echo '<img src="/static/grey.gif" data-original="/avatar/large/',$t_obj['uavatar'],'.png" alt="',$t_obj['author'],'" />';
 }
 echo '    </a></div>
     <div class="c"></div>

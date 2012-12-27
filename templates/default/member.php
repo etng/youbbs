@@ -18,6 +18,9 @@ echo '
 <p>主贴： ',$m_obj['articles'],'  &nbsp;&nbsp;&nbsp; 回贴： ',$m_obj['replies'],'</p>
 <p>网站： <a href="',$m_obj['url'],'" target="_blank" rel="nofollow">',$m_obj['url'],'</a></p>';
 
+if($weibo_user['openid']){
+    echo '<p>新浪微博： <a href="http://weibo.com/',$weibo_user['openid'],'" target="_blank" rel="nofollow">http://weibo.com/',$weibo_user['openid'],'</a></p>';
+}
 if($openid_user['name']){
     echo '<p>腾讯微博： <a href="http://t.qq.com/',$openid_user['name'],'" target="_blank" rel="nofollow">http://t.qq.com/',$openid_user['name'],'</a></p>';
 }

@@ -3,7 +3,7 @@ if (!defined('IN_SAESPOT')) exit('error: 403 Access Denied');
 
 echo '
 <div class="title">
-    <div class="float-left fs14">
+    <div class="float-left">
         &raquo; 最近更新
     </div>';
 if($cur_user && $cur_user['flag']>4 && $newest_nodes){
@@ -43,6 +43,15 @@ echo '    <div class="c"></div>
 </div>';
 
 }
+
+
+if(count($articledb) == $options['home_shownum']){ 
+echo '<div class="pagination">';
+echo '<a href="/page/2" class="float-right">下一页 &raquo;</a>';
+echo '<div class="c"></div>
+</div>';
+}
+
 
 echo '</div>';
 
