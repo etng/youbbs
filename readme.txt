@@ -1,4 +1,4 @@
-youBBS v1.03 for VPS普通空间
+youBBS v1.04 for VPS普通空间
 
 youBBS 是一款超轻量级的论坛程序，基于标准的php+mysql环境，为了让url更优美，服务器必须支持rewrite。
 
