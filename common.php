@@ -65,8 +65,8 @@ if($cur_uname && $cur_uid && $cur_ucode){
 
 // 获得散列
 function formhash() {
-	global $cur_ucode, $options;
-	return substr(md5($options['site_create'].$cur_ucode), 8, 8);
+	global $cur_user, $timestamp;
+	return substr(md5(substr($timestamp, 0, -7).$cur_user['id'].$cur_user['password']), 8, 8);
 }
 
 $formhash = formhash();
